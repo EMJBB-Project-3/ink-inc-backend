@@ -1,16 +1,29 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+const { default: mongoose } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    username: String,
-    title: String,
-    text: String,
-    artist: String,
-    // date: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-    // favorites: Number,
-});
+      username: {
+        type: String,
+        required: true
+      },
+      text: {
+        type: String,
+        
+      },
+      artist: {
+        type: String,
+        required: true
+      },
+     createdOn: {
+       type: Date,
+       default: Date.now()
+     },
+     favorites: {
+       type: Number 
+     }
+})
+
 
 const Post = mongoose.model('Post', postSchema);
 
