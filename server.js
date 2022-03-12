@@ -1,6 +1,20 @@
 const express = require('express');
 // const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
+const accessKeyId = require ('dotenv')
+const AWS = require('aws-sdk');
+const uuid = require ('uuid');
+
+var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+AWS.config.credentials = credentials;
+
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack);
+  // credentials not loaded
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId);
+  }
+});
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
