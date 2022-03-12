@@ -8,12 +8,15 @@
     "seed": "node seeds/seed.js"
   },
   "dependencies": {
+    "apollo-server-express": "^3.6.1",
+    "aws-sdk": "^2.1092.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.2.0",
     "mongodb": "^3.6.7",
     "mongoose": "^6.0.13",
-    "graphql": "^16.2.0",
-    "apollo-server-express": "^3.6.1",
-    "express-graphql": "^0.12.0"
+    "uuid": "^8.3.2"
   },
   "repository": {
     "type": "git",
