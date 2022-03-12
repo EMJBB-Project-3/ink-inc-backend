@@ -13,7 +13,7 @@ const typeDefs = gql`
     text: String,
     artist: String,
     createdOn: String
-    favorites: Number  
+    favorites: Int 
   }
 
 

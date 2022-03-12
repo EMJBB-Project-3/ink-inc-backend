@@ -20,8 +20,9 @@ const postSchema = new mongoose.Schema({
        default: Date.now()
      },
      favorites: {
-       type: Number 
-     }
+      type: Number 
+    }
+    
 })
 
 

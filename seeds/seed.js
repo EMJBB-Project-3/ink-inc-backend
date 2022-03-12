@@ -1,15 +1,18 @@
+// const { executeDbAdminCommand } = require('mongodb/lib/operations/db_ops');
 const db = require('../config/connection');
-const { Profile } = require('../models');
-const profileSeeds = require('./profileSeeds.json')
+const { User, Post } = require('../models');
+
+
+const userData = require('./userData.json')
+const postData = require('./postData.json')
 
 db.once('open', async () => {
-    try {
-        await Profile.deleteMany({});
-        await Profile.create(profileSeeds);
+    await User.deleteMany({});
+    await Post.deleteMany({})
 
-        console.log('all done!');
-        process.exit(0);
-    }   catch (err) {
-        throw err;
-    }
+    const users = await User.insertMany(userData);
+    const posts = await Post.insertMany(postData)
+
+    console.log('all done!');
+    process.exit(0);
 });
