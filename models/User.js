@@ -1,10 +1,39 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 1,
+      maxlength: 280
+    },
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    //   required: true,
+    //   match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+    // },
+    password: { 
+      type: String,
+      required: true,
+      minlength: 8,
+      maxlength: 280
+    },
+    posts: [
+      {type: Schema.Types.ObjectId,
+        ref: 'Post' 
+       }
+    ],
+    favoritePosts: [
+      {type: Schema.Types.ObjectId,
+        ref: 'Post' 
+       }
+    ]
+
 })
+
 
 const User = mongoose.model('User', userSchema);
 

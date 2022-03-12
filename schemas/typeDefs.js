@@ -1,26 +1,26 @@
 const { gql } = require('apollo-server-express');
 
-//type defs is the setup for a class
 const typeDefs = gql`
  
   type User {
     username: String,
-    email: String,
-    password: String
+    password: String,
+    posts: [Post]
+    favoritePosts: [Post]
   }
 
   type Post {
     username: String,
-    title: String,
     text: String,
     artist: String,
-    
+    createdOn: String
+    favorites: Number  
   }
+
 
   type Query {
     allUsers: [User]
     allPosts: [Post]
-
   }
 `;
 
