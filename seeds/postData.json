@@ -1,0 +1,37 @@
+[
+    {
+        "username" : "miles1",
+        "title": "miles'test post'",
+        "text": "post text",
+        "artist": "artist's name",
+        "favorites": 1
+    },
+    {
+        "username" : "evan1",
+        "title": "evan's test post'",
+        "text": "post text",
+        "artist": "artist's name",
+        "favorites": 1
+    },
+    {
+        "username" : "jackie1",
+        "title": "jackie's test post'",
+        "text": "post text",
+        "artist": "artist's name",
+        "favorites": 1
+    },
+    {
+        "username" : "brandon1",
+        "title": "brandon's test post'",
+        "text": "post text",
+        "artist": "artist's name",
+        "favorites": 1
+    },
+    {
+        "username" : "baagii1",
+        "title": "baagii's test post'",
+        "text": "post text",
+        "artist": "artist's name",
+        "favorites": 1
+    }
+]
