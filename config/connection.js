@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-// require('dotenv').config();
-// const AWS = require('aws-sdk');
-// const uuid = require ('uuid');
 
 // Wrap Mongoose around local connection to MongoDB
 mongoose.connect(
@@ -14,3 +11,4 @@ mongoose.connect(
 
 // Export connection 
 module.exports = mongoose.connection;
+
