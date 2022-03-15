@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const secret = 'mysecretssshhhhhhh';
-const expiration = '24h';
+const expiration = '1h';
 /*
 We then assign values for both a secret and expiration. 
 The secret is a private key that signs the token and enables 

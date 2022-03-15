@@ -4,22 +4,6 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 
-// const accessKeyId = require ('dotenv')
-// const AWS = require('aws-sdk');
-// const uuid = require ('uuid');
-
-// var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-// AWS.config.credentials = credentials;
-
-// AWS.config.getCredentials(function(err) {
-//   if (err) console.log(err.stack);
-//   // credentials not loaded
-//   else {
-//     console.log("Access key:", AWS.config.credentials.accessKeyId);
-//   }
-// });
-
-
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
@@ -34,44 +18,16 @@ const server = new ApolloServer({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
-// app.get('/read', (req, res) => {
-//     // Use db connection to find all documents in collection
-//     db.collection('things')
-//       .find()
-//       .toArray((err, results) => {
-//         if (err) throw err;
-//         res.send(results);
-//       });
-//   });
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
+// }
 
 // app.get('/', (req, res) => {
-//     // Use db connection to find all documents in collection
-//     db.collection('users')
-//       .find()
-//       .toArray((err, results) => {
-//         if (err) throw err;
-//         res.send(results);
-//       });
-//   });
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
-
-//   db.once('open', () => {
-//     app.listen(PORT, () => {
-//       console.log(`API server running on port ${PORT}!`);
-//     });
-//   });
-
-
-const startApolloServer = async () => {
-    // const startApolloServer = async (typeDefs, resolvers) => {
+// creating a new instance of an apollo server with GraphQL schema
+const startApolloServer = async (typeDefs, resolvers) => {
     await server.start();
     server.applyMiddleware({ app });
     
@@ -84,4 +40,4 @@ const startApolloServer = async () => {
     };
 
 
-startApolloServer();
+startApolloServer(typeDefs, resolvers);
