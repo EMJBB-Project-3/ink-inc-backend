@@ -9,9 +9,22 @@ const resolvers = {
       return await User.find({});
     },
 
-    user: async(parent, { profileId }) => {
-      return User.findOne({ _id: userId });
-    },
+    // user: async(parent, { profileId }) => {
+    //   return User.findOne({ _id: userId });
+    // },
+  // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+  
+  user: async (parent, args, context) => {
+    if (context.user) {
+      return User.findOne({ _id: context.user._id });
+    }
+    throw new AuthenticationError('You need to be logged in!');
+  },
+
+    // user: async(parent, { userId }) => {
+    //   return User.findOne({ _id: userId });
+    // },
+
 
     allPosts: async() => {
     return await Post.find({})
@@ -45,6 +58,28 @@ const resolvers = {
     removeUser: async (parent, { profileId }) => {
       return Profile.findOneAndDelete({ _id: profileId });
     },
+
+    // addPost: async (parent, {username, text, artist, favorites}) => {
+    //   const newPost = await Post.create({username, text, artist, favorites})
+    //   return newPost 
+    // }
+
+    //from act 21.25
+    addPost: async (parent, { username, text, artist, favorites }, context) => {
+      // if (context.user) {
+        const newPost = await Post.create({username, text, artist, favorites});
+        const userData = await User.findOneAndUpdate(
+          {username: username},
+          {$addToSet: {posts: newPost}}
+          );
+        console.log(userData);
+        return newPost
+        }
+
+      // }
+      // If user attempts to execute this mutation and isn't logged in, throw an error
+      // throw new AuthenticationError('You need to be logged in!');
+    // },
   },
 };
 
