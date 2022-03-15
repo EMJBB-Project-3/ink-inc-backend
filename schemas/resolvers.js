@@ -9,66 +9,43 @@ const resolvers = {
       return await User.find({});
     },
 
+    user: async(parent, { profileId }) => {
+      return User.findOne({ _id: userId });
+    },
+
     allPosts: async() => {
     return await Post.find({})
     }
-  }
+  },
+
+  Mutation: {
+    addUser: async (parent, { username, email, password }) => {
+      console.log('hi', username, email, password)
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      console.log('token', token)
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!profile) {
+        throw new AuthenticationError('there is no user with this email!');
+      }
+
+      const correctPw = await profile.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password!');
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
+    removeUser: async (parent, { profileId }) => {
+      return Profile.findOneAndDelete({ _id: profileId });
+    },
+  },
 };
-
-// const resolvers = {
-//   Query: {
-//     profiles: async () => {
-//       return Profile.find();
-//     },
-
-//     profile: async (parent, { profileId }) => {
-//       return Profile.findOne({ _id: profileId });
-//     },
-//   },
-
-//   Mutation: {
-//     addProfile: async (parent, { name, email, password }) => {
-//       const profile = await Profile.create({ name, email, password });
-//       const token = signToken(profile);
-//       console.log('token', token)
-//       return { token, profile };
-//     },
-//     login: async (parent, { email, password }) => {
-//       const profile = await Profile.findOne({ email });
-
-//       if (!profile) {
-//         throw new AuthenticationError('No profile with this email found!');
-//       }
-
-//       const correctPw = await profile.isCorrectPassword(password);
-
-//       if (!correctPw) {
-//         throw new AuthenticationError('Incorrect password!');
-//       }
-
-//       const token = signToken(profile);
-//       return { token, profile };
-//     },
-
-//     addSkill: async (parent, { profileId }) => {
-//       return Profile.findOneAndUpdate(
-//         { _id: profileId },
-//         {
-//           new: true,
-//           runValidators: true,
-//         }
-//       );
-//     },
-//     removeProfile: async (parent, { profileId }) => {
-//       return Profile.findOneAndDelete({ _id: profileId });
-//     },
-//     removeSkill: async (parent, { profileId }) => {
-//       return Profile.findOneAndUpdate(
-//         { _id: profileId },
-//         { new: true }
-//       );
-//     },
-//   },
-// };
 
 module.exports = resolvers;

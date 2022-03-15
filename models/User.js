@@ -1,26 +1,24 @@
 const { default: mongoose } = require('mongoose');
 const {Schema, model} = require('mongoose');
+const bcrypt  = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     username: {
       type: String,
       required: true,
       unique: true,
-      minlength: 1,
-      maxlength: 280
+      trim: true,
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    //   required: true,
-    //   match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
-    // },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
+    },
     password: { 
       type: String,
       required: true,
-      minlength: 8,
-      maxlength: 280
+      minlength: 5,
     },
     posts: [
       {type: Schema.Types.ObjectId,
@@ -35,6 +33,19 @@ const userSchema = new mongoose.Schema({
 
 })
 
+// set up pre-save middleware to create password
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+  next ();
+});
+
+// compare the incoming password with the hashed password
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
 
