@@ -5,13 +5,13 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDDZ-iU3vq3uj4K6IeDka-YP1W2D7XAV4A",
-    authDomain: "emjbb-dd05a.firebaseapp.com",
-    projectId: "emjbb-dd05a",
-    storageBucket: "emjbb-dd05a.appspot.com",
-    messagingSenderId: "666846993380",
-    appId: "1:666846993380:web:a6b081058b6c8e141485f1",
-    measurementId: "G-2KLZ820JFZ"
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId,
+    measurementId: process.env.measurementId
 };
 
 // Initialize Firebase
@@ -19,17 +19,17 @@ const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
 
 // Create a storage reference from our storage service
-const storageRef = ref(storage, 'images/' + file.name);
+// const storageRef = ref(storage, 'images/' + file.name);
 
 // Create a reference to 'mountains.jpg'
-const mountainsRef = ref(storage, 'mountains.jpg');
+// const mountainsRef = ref(storage, 'PngItem_47269.png');
 
 // Create a reference to 'images/mountains.jpg'
-const mountainImagesRef = ref(storage, 'images/mountains.jpg');
+const mountainImagesRef = ref(storage, 'images/PngItem_47269.png');
 
 // While the file names are the same, the references point to different files
-mountainsRef.name === mountainImagesRef.name;           // true
-mountainsRef.fullPath === mountainImagesRef.fullPath;   // false 
+// mountainsRef.name === mountainImagesRef.name;           // true
+// mountainsRef.fullPath === mountainImagesRef.fullPath;   // false 
 
 // Create the file metadata
 /** @type {any} */
