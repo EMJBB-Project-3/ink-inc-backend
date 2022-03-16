@@ -1,14 +1,22 @@
-const mongoose = require('mongoose');
+const Sequilize = require('sequilize');
+require('dotenv').config();
 
-// Wrap Mongoose around local connection to MongoDB
-mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/test_db', 
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+let sequilize;
 
-// Export connection 
-module.exports = mongoose.connection;
+if (process.env.JAWSDB_URL) {
+  sequelize = new Sequelize(process.env.JAWSDB_URL);
+} else {
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+      host: 'localhost',
+      dialect: 'mysql',
+      port: 3001
+    }
+  );
+}
+
+module.exports = sequelize;
 
