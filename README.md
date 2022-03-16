@@ -1,1 +1,1 @@
-#ink-inc-backend
+#ink-inc
