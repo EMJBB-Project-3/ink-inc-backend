@@ -32,8 +32,14 @@ const resolvers = {
 
     allPosts: async() => {
     return await Post.find({})
+    },
+
+    userPosts: async(parent, {username}) => {
+      return await Post.find({username:username})
     }
   },
+
+   
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {

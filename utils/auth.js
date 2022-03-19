@@ -10,8 +10,8 @@ The expiration is the length of time the token remains valid before expiring
 */
 
 module.exports = {
-  signToken: function ({ email, name, _id }) {
-    const payload = { email, name, _id };
+  signToken: function ({ username, name, _id }) {
+    const payload = { username, name, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
