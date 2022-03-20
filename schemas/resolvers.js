@@ -95,6 +95,10 @@ const resolvers = {
       // throw new AuthenticationError('You need to be logged in!');
     // },
   },
+    addFavorite: async (parent) => {
+      const favoritePost = await Post.findOneAndUpdate({})
+    }
+
 };
 
 module.exports = resolvers;
