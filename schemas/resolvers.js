@@ -88,17 +88,27 @@ const resolvers = {
           );
         console.log(userData);
         return newPost
-        }
+        },
 
       // }
       // If user attempts to execute this mutation and isn't logged in, throw an error
       // throw new AuthenticationError('You need to be logged in!');
     // },
-  },
-    addFavorite: async (parent) => {
-      const favoritePost = await Post.findOneAndUpdate({})
-    }
+    addFavorite: async (parent, _id) => {
+      const favoritePost = await Post.findOneAndUpdate(
+        {_id},
+        {$inc: {favorites: 1}},
+        {new: true}
+        );
+      
+      
 
+
+
+
+      return favoritePost;
+    },
+  },
 };
 
 module.exports = resolvers;
