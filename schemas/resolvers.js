@@ -94,19 +94,20 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       // throw new AuthenticationError('You need to be logged in!');
     // },
-    addFavorite: async (parent, _id) => {
+    addFavorite: async (parent, {_id, username}) => {
       const favoritePost = await Post.findOneAndUpdate(
         {_id},
         {$inc: {favorites: 1}},
         {new: true}
         );
-      
-      
 
-
-
-
-      return favoritePost;
+      const addToFavoritesArray = await User.findOneAndUpdate(
+        {username},
+        {$addToSet: {favoritePosts: _id}},
+        {new:true}
+      )
+    
+      return favoritePost, addToFavoritesArray;
     },
   },
 };
